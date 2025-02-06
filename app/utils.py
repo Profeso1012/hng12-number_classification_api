@@ -6,23 +6,27 @@ def is_prime(n: int) -> bool:
     """Check if a number is prime."""
     if n < 2:
         return False
-    for i in range(2, int(sqrt(n)) + 1):
+    for i in range(2, int(sqrt(abs(n))) + 1):
         if n % i == 0:
             return False
     return True
 
 def is_perfect(n: int) -> bool:
     """Check if a number is a perfect number."""
-    return n > 1 and sum(i for i in range(1, n) if n % i == 0) == n
+    if n < 1:
+        return False
+    return sum(i for i in range(1, n) if n % i == 0) == n
 
 def is_armstrong(n: int) -> bool:
     """Check if a number is an Armstrong number."""
-    digits = [int(d) for d in str(n)]
-    return sum(d ** len(digits) for d in digits) == n
+    if n < 0:
+        return False
+    digits = [int(d) for d in str(abs(n))]
+    return sum(d ** len(digits) for d in digits) == abs(n)
 
 def get_digit_sum(n: int) -> int:
     """Calculate the sum of the digits of a number."""
-    return sum(int(d) for d in str(n))
+    return sum(int(d) for d in str(abs(n)))
 
 def classify_number(n: int) -> dict:
     """Classify a number and return its properties."""
