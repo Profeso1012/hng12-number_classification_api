@@ -10,9 +10,9 @@ router = APIRouter()
 def classify_number_endpoint(number: str = Query(None, description="The number to classify")):
     """API endpoint to classify a number and fetch a fun fact."""
     try:
-        # Ensure a number parameter is provided
+        # Ensure a number parameter is provided and valid
         if number is None or not number.lstrip("-").isdigit():
-            return {"number": number, "error": True}
+            return {"number": "invalid_input", "error": True}
         
         number = int(number)
         result = classify_number(number)
@@ -38,5 +38,4 @@ def health_check():
 @router.get("/{full_path:path}")
 def handle_invalid_routes(full_path: str):
     """Catch-all route to handle invalid paths and return an error response."""
-    return {"number": full_path, "error": True}
-        
+    return {"number": "invalid_input", "error": True}
