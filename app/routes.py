@@ -12,7 +12,7 @@ def classify_number_endpoint(number: str = Query(..., description="The number to
     try:
         # Validate input (must be an integer)
         if not number.lstrip("-").isdigit():
-            raise HTTPException(status_code=400, detail={"number": number, "error": True})
+            raise HTTPException(status_code=400, detail={"number": "alphabet", "error": True})
         
         number = int(number)
         result = classify_number(number)
