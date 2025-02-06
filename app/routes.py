@@ -12,7 +12,7 @@ def classify_number_endpoint(number: str = Query(None, description="The number t
     try:
         # Ensure a number parameter is provided and valid
         if number is None or not number.lstrip("-").isdigit():
-            return {"number": "invalid_input", "error": True}
+            raise HTTPException(status_code=400, detail={"number": number, "error": True})
         
         number = int(number)
         result = classify_number(number)
@@ -38,4 +38,5 @@ def health_check():
 @router.get("/{full_path:path}")
 def handle_invalid_routes(full_path: str):
     """Catch-all route to handle invalid paths and return an error response."""
-    return {"number": "invalid_input", "error": True}
+    raise HTTPException(status_code=400, detail={"number": full_path, "error": True})
+    
